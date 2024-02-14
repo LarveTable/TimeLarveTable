@@ -1,3 +1,4 @@
 .vscode
 pythonfetch.py
 updated_courses_names.txt
+.DS_store
