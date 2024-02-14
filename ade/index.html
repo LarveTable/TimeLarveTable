@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="buttons.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="unicons.css">
+  <link rel=“icon” type=“image/x-icon” href="favicon.ico">
+  <script src="ozmenu.js"></script>
+  <script defer src="ical/ical.js"></script>
+  <script defer src="events_colors_matcher.js"></script>
+  <script defer src="load_schedule.js"></script>
+</head>
+<body>
+
+    <!-- Clock -->
+    <div id="clock"></div>
+
+    <!-- Mobile Toggle Menu -->
+    <div class="menu-open">
+        <span class="open"></span>
+    </div>
+    <!-- ozmenu -->
+    <div class="ozmenu">
+        <div class="menu-close"><span class="close"></span></div>
+        <ul class="ozmenu-nav">
+        <li class="item dropdownitem">
+            <a href="#" class="nav-dropdown">Schedule selector</a>
+            <div class="dropdown">
+            <ul>
+                <li class="item dropdownitem">
+                <a href="#" class="nav-dropdown">STPI</a>
+                <div class="dropdown">
+                    <ul>
+                    <li class="item year"><a href="#">S1STPI (1A)</a></li>
+                    <li class="item year"><a href="#">S2STPI (1A)</a></li>
+                    <li class="item year"><a href="#">S3STPI (2A)</a></li>
+                    <li class="item year"><a href="#">S4STPI (2A)</a></li>
+                    </ul>
+                </div>
+                </li>
+                <li class="item dropdownitem">
+                <a href="#" class="nav-dropdown">INFO</a>
+                <div class="dropdown">
+                    <ul>
+                    <li class="item year"><a href="#">S5INF (3A)</a></li>
+                    <li class="item year"><a href="#">S6INF (3A)</a></li>
+                    <li class="item year"><a href="#">S7INF (4A)</a></li>
+                    <li class="item year"><a href="#">S8INF (4A)</a></li>
+                    <li class="item year"><a href="#">S9INF (5A)</a></li>
+                    <li class="item year"><a href="#">S10INF (5A)</a></li>
+                    </ul>
+                </div>
+                </li>
+                <li class="item dropdownitem">
+                <a href="#" class="nav-dropdown">EII</a>
+                <div class="dropdown">
+                    <ul>
+                    <li class="item year"><a href="#">S5EII (3A)</a></li>
+                    <li class="item year"><a href="#">S6EII (3A)</a></li>
+                    <li class="item year"><a href="#">S7EII (4A)</a></li>
+                    <li class="item year"><a href="#">S8EII (4A)</a></li>
+                    <li class="item year"><a href="#">S9EII (5A)</a></li>
+                    <li class="item year"><a href="#">S10EII (5A)</a></li>
+                    </ul>
+                </div>
+                </li>
+                <li class="item dropdownitem">
+                <a href="#" class="nav-dropdown">GPM</a>
+                <div class="dropdown">
+                    <ul>
+                    <li class="item year"><a href="#">S5GPM (3A)</a></li>
+                    <li class="item year"><a href="#">S6GPM (3A)</a></li>
+                    <li class="item year"><a href="#">S7GPM (4A)</a></li>
+                    <li class="item year"><a href="#">S8GPM (4A)</a></li>
+                    <li class="item year"><a href="#">S9GPM (5A)</a></li>
+                    <li class="item year"><a href="#">S10GPM (5A)</a></li>
+                    </ul>
+                </div>
+                </li>
+                <li class="item dropdownitem">
+                <a href="#" class="nav-dropdown">GMA</a>
+                <div class="dropdown">
+                    <ul>
+                    <li class="item year"><a href="#">S5GMA (3A)</a></li>
+                    <li class="item year"><a href="#">S6GMA (3A)</a></li>
+                    <li class="item year"><a href="#">S7GMA (4A)</a></li>
+                    <li class="item year"><a href="#">S8GMA (4A)</a></li>
+                    <li class="item year"><a href="#">S9GMA (5A)</a></li>
+                    <li class="item year"><a href="#">S10GMA (5A)</a></li>
+                    </ul>
+                </div>
+                </li>
+                <li class="item dropdownitem">
+                <a href="#" class="nav-dropdown">MA</a>
+                <div class="dropdown">
+                    <ul>
+                    <li class="item year"><a href="#">S5MA (3A)</a></li>
+                    <li class="item year"><a href="#">S6MA (3A)</a></li>
+                    <li class="item year"><a href="#">S7MA (4A)</a></li>
+                    <li class="item year"><a href="#">S8MA (4A)</a></li>
+                    <li class="item year"><a href="#">S9MA (5A)</a></li>
+                    <li class="item year"><a href="#">S10MA (5A)</a></li>
+                    </ul>
+                </div>
+                </li>
+            </ul>
+            </div>
+        </li>
+        </ul>
+    </div>
+
+    <div class="light-back"></div> 
+
+    <div class="uil-arrow-circle-right"></div>
+    <div class="uil-arrow-circle-left"></div>
+
+    <h1 id="head_main"></h1>
+
+    <div id="event-scheduler">
+        <!-- Table content will be generated dynamically using JavaScript -->
+    </div>
+
+    <div id="version"></div>
+
+</body>
+</html>
