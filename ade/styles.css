@@ -38,7 +38,6 @@ body {
 }
 
 #version {
-    width: 100%;
     text-align: center;
     color: rgb(176, 183, 189);
 }
@@ -156,4 +155,17 @@ body {
 #clock{
     position: absolute;
     top: 75px;
+}
+
+#wcb{
+    z-index: 9999;
+    position: absolute;
+    bottom: 0%;
+    right: 1%;
+    display: flex;
+}
+
+#wrapper{
+    position: relative;
+    width: 100%;
 }
