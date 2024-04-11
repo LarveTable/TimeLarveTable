@@ -6,129 +6,261 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <link rel="stylesheet" type="text/css" href="buttons.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="unicons.css">
     <link rel=“icon” type=“image/x-icon” href="favicon.ico">
-    <script src="ozmenu.js"></script>
+    
+    <!-- Popup -->
+    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="checkboxes.css">
+    <link rel="stylesheet" href="navigate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="change_choices.css">
+    <script src="popup.js"></script>
+
     <script defer src="ical/ical.js"></script>
     <script defer src="events_colors_matcher.js"></script>
     <script defer src="load_schedule.js"></script>
-    <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
+    <!--script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script--> <!-- To uncomment -->
 </head>
 <body>
+    <div class="schedule-wrapper fade-in">
+        <!-- Clock -->
+        <div id="clock"></div>
 
-    <!-- Clock -->
-    <div id="clock"></div>
+        <button class="choices" role="button">Select</button>
 
-    <!-- Mobile Toggle Menu -->
-    <div class="menu-open">
-        <span class="open"></span>
+        <div class="uil-arrow-circle-right"></div>
+        <div class="uil-arrow-circle-left"></div>
+
+        <h1 id="head_main"></h1>
+
+        <div id="event-scheduler">
+            <!-- Table content will be generated dynamically using JavaScript -->
+        </div>
+
+        <div id="version"></div>
+        <div id="wrapper">
+            <div id="wcb" class="carbonbadge wcb-d"></div>
+        </div>
     </div>
-    <!-- ozmenu -->
-    <div class="ozmenu">
-        <div class="menu-close"><span class="close"></span></div>
-        <ul class="ozmenu-nav">
-        <li class="item dropdownitem">
-            <a href="#" class="nav-dropdown">Schedule selector</a>
-            <div class="dropdown">
-            <ul>
-                <li class="item dropdownitem">
-                <a href="#" class="nav-dropdown">STPI</a>
-                <div class="dropdown">
-                    <ul>
-                    <li class="item year"><a href="#">S1STPI (1A)</a></li>
-                    <li class="item year"><a href="#">S2STPI (1A)</a></li>
-                    <li class="item year"><a href="#">S3STPI (2A)</a></li>
-                    <li class="item year"><a href="#">S4STPI (2A)</a></li>
-                    </ul>
-                </div>
-                </li>
-                <li class="item dropdownitem">
-                <a href="#" class="nav-dropdown">INFO</a>
-                <div class="dropdown">
-                    <ul>
-                    <li class="item year"><a href="#">S5INF (3A)</a></li>
-                    <li class="item year"><a href="#">S6INF (3A)</a></li>
-                    <li class="item year"><a href="#">S7INF (4A)</a></li>
-                    <li class="item year"><a href="#">S8INF (4A)</a></li>
-                    <li class="item year"><a href="#">S9INF (5A)</a></li>
-                    <li class="item year"><a href="#">S10INF (5A)</a></li>
-                    </ul>
-                </div>
-                </li>
-                <li class="item dropdownitem">
-                <a href="#" class="nav-dropdown">EII</a>
-                <div class="dropdown">
-                    <ul>
-                    <li class="item year"><a href="#">S5EII (3A)</a></li>
-                    <li class="item year"><a href="#">S6EII (3A)</a></li>
-                    <li class="item year"><a href="#">S7EII (4A)</a></li>
-                    <li class="item year"><a href="#">S8EII (4A)</a></li>
-                    <li class="item year"><a href="#">S9EII (5A)</a></li>
-                    <li class="item year"><a href="#">S10EII (5A)</a></li>
-                    </ul>
-                </div>
-                </li>
-                <li class="item dropdownitem">
-                <a href="#" class="nav-dropdown">GPM</a>
-                <div class="dropdown">
-                    <ul>
-                    <li class="item year"><a href="#">S5GPM (3A)</a></li>
-                    <li class="item year"><a href="#">S6GPM (3A)</a></li>
-                    <li class="item year"><a href="#">S7GPM (4A)</a></li>
-                    <li class="item year"><a href="#">S8GPM (4A)</a></li>
-                    <li class="item year"><a href="#">S9GPM (5A)</a></li>
-                    <li class="item year"><a href="#">S10GPM (5A)</a></li>
-                    </ul>
-                </div>
-                </li>
-                <li class="item dropdownitem">
-                <a href="#" class="nav-dropdown">GMA</a>
-                <div class="dropdown">
-                    <ul>
-                    <li class="item year"><a href="#">S5GMA (3A)</a></li>
-                    <li class="item year"><a href="#">S6GMA (3A)</a></li>
-                    <li class="item year"><a href="#">S7GMA (4A)</a></li>
-                    <li class="item year"><a href="#">S8GMA (4A)</a></li>
-                    <li class="item year"><a href="#">S9GMA (5A)</a></li>
-                    <li class="item year"><a href="#">S10GMA (5A)</a></li>
-                    </ul>
-                </div>
-                </li>
-                <li class="item dropdownitem">
-                <a href="#" class="nav-dropdown">MA</a>
-                <div class="dropdown">
-                    <ul>
-                    <li class="item year"><a href="#">S5MA (3A)</a></li>
-                    <li class="item year"><a href="#">S6MA (3A)</a></li>
-                    <li class="item year"><a href="#">S7MA (4A)</a></li>
-                    <li class="item year"><a href="#">S8MA (4A)</a></li>
-                    <li class="item year"><a href="#">S9MA (5A)</a></li>
-                    <li class="item year"><a href="#">S10MA (5A)</a></li>
-                    </ul>
-                </div>
-                </li>
-            </ul>
+
+    <!-- Popup -->
+    <div class="popup-wrapper fade-out">
+        <div id="pop-up">
+        <button class="btn fade-out" id="return">Return <img src="./icons/arrow-u-up-left.svg" style="width:27px; margin-left:0px; margin-right:10px; flex-direction: row-reverse;"></button>
+        <button class="btn fade-out val" id="validate">Validate <img src="./icons/check.svg" style="width:27px; margin-left:0px; margin-right:10px; flex-direction: row-reverse;"></button>
+        <!-- partial:index.partial.html -->
+        <fieldset class="checkbox-group first">
+            <legend class="checkbox-group-legend">Select your department</legend>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><circle cx="92" cy="140" r="12"/><circle cx="164" cy="140" r="12"/><path d="M153.44,73.69l5-19.63a8.1,8.1,0,0,1,9.21-6L203.69,54A8.08,8.08,0,0,1,210.23,60l29.53,116.37a8,8,0,0,1-4.55,9.24l-67,29.7a8.15,8.15,0,0,1-11-4.56L147,183.06" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M102.56,73.69l-5-19.63a8.1,8.1,0,0,0-9.21-6L52.31,54A8.08,8.08,0,0,0,45.77,60L16.24,176.35a8,8,0,0,0,4.55,9.24l67,29.7a8.15,8.15,0,0,0,11-4.56L109,183.06" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M80,78.31A178.94,178.94,0,0,1,128,72a178.94,178.94,0,0,1,48,6.31" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M176,177.69A178.94,178.94,0,0,1,128,184a178.94,178.94,0,0,1-48-6.31" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">INFO</span>
+                    </span>
+                </label>
             </div>
-        </li>
-        </ul>
-    </div>
-
-    <div class="light-back"></div> 
-
-    <div class="uil-arrow-circle-right"></div>
-    <div class="uil-arrow-circle-left"></div>
-
-    <h1 id="head_main"></h1>
-
-    <div id="event-scheduler">
-        <!-- Table content will be generated dynamically using JavaScript -->
-    </div>
-
-    <div id="version"></div>
-    <div id="wrapper">
-        <div id="wcb" class="carbonbadge wcb-d"></div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="40" y1="72" x2="104" y2="72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="72" y1="152" x2="72" y2="216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="40" y1="184" x2="104" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="152" y1="168" x2="216" y2="168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="152" y1="200" x2="216" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="160" y1="48" x2="208" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="208" y1="48" x2="160" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">DMA</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><ellipse cx="128" cy="128" rx="44.13" ry="116.33" transform="translate(-53.02 128) rotate(-45)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><ellipse cx="128" cy="128" rx="116.33" ry="44.13" transform="translate(-53.02 128) rotate(-45)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="128" cy="128" r="12"/></svg>
+                        </span>
+                        <span class="checkbox-label">GPM</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><rect x="104" y="104" width="48" height="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><rect x="48" y="48" width="160" height="160" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="208" y1="104" x2="232" y2="104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="208" y1="152" x2="232" y2="152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="24" y1="104" x2="48" y2="104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="24" y1="152" x2="48" y2="152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="152" y1="208" x2="152" y2="232" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="104" y1="208" x2="104" y2="232" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="152" y1="24" x2="152" y2="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="104" y1="24" x2="104" y2="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">EII</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="64" y1="56" x2="64" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="192" y1="56" x2="192" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M24,115.35A64,64,0,0,0,64,56a64,64,0,0,0,128,0,64,64,0,0,0,40,59.35" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="152" y1="115.35" x2="152" y2="168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="104" y1="115.35" x2="104" y2="168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="24" y1="168" x2="232" y2="168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">GCU</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><rect x="32" y="56" width="192" height="160" rx="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><rect x="72" y="144" width="112" height="40" rx="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="148" y1="144" x2="148" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="108" y1="144" x2="108" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="128" y1="56" x2="128" y2="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="84" cy="108" r="12"/><circle cx="172" cy="108" r="12"/></svg>
+                        </span>
+                        <span class="checkbox-label">GMA</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="208" y1="152" x2="160" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="208" y1="200" x2="160" y2="152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="160" y1="72" x2="160" y2="112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="200" y1="32" x2="200" y2="112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="120" y1="112" x2="120" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="80" y1="152" x2="80" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="40" y1="192" x2="40" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">E&T</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><circle cx="92" cy="132" r="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="164" cy="132" r="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="112" y1="224" x2="112" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="144" y1="224" x2="144" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M176,216a8,8,0,0,1-8,8H88a8,8,0,0,1-8-8V195.69C51.31,179.78,32,150.05,32,116c0-50.81,43-92,96-92s96,41.19,96,92c0,34.05-19.31,63.78-48,79.69Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">STPI</span>
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+        
+        <fieldset class="checkbox-group second fade-out">
+            <legend class="checkbox-group-legend">Select your semester</legend>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M88,195.78a48,48,0,1,0,.92-72.36L104,48h64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S5</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><circle cx="128" cy="160" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="86.43" y1="136" x2="136" y2="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S6</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><polyline points="88 48 168 48 120 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S7</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><circle cx="128" cy="168" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="128" cy="80" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S8</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><circle cx="128" cy="96" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="120" y1="208" x2="169.57" y2="120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S9</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M136,192c20-3.37,36.61-20,40-40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M112,96l26.27-72C159.86,41.92,208,88.15,208,144a80,80,0,0,1-160,0c0-30.57,14.42-58.26,31-80Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S10</span>
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+        
+        <fieldset class="checkbox-group second-STPI fade-out">
+            <legend class="checkbox-group-legend">Select your semester</legend>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><polyline points="96 72 136 48 136 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S1</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M91.33,72a40,40,0,1,1,68.61,40.07L88,208h80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S2</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M88,48h80l-48,64a48,48,0,1,1-32,83.78" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S3</span>
+                    </span>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><polyline points="184 168 64 168 160 48 160 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                        </span>
+                        <span class="checkbox-label">S4</span>
+                    </span>
+                </label>
+            </div>
+        </fieldset>
+        </div>
     </div>
 
 </body>

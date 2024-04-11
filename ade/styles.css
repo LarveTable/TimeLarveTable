@@ -19,6 +19,9 @@ body {
     background-position: center;
     background-repeat: repeat;
     background-size: 4%;
+}
+
+.schedule-wrapper{
     width: 100%;
     display: -ms-flexbox;
     display: flex;
@@ -26,6 +29,7 @@ body {
     flex-wrap: wrap;
     -ms-flex-pack: center;
     justify-content: center;
+    /*filter: blur(5px);*/
 }
 
 #event-scheduler {

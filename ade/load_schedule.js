@@ -6,22 +6,25 @@ const startTime = 8;
 const endTime = 21;
 
 // (to change and maybe change location) Table to align events that start at the same time 
-var events_hour_per_day_list = [[], [], [], [], []];
+var events_hour_per_day_list = [{}, {}, {}, {}, {}];
 
 // Version of the app
-const version = "1.5";
+const version = "2.0";
 
 // Default data to be displayed
-var default_data = "S6INF";
+// var actual_data = "S6INF";
 
 // Store the selected data to display the colors
-var actual_data = default_data;
+var actual_data = [];
 
 // Actual date to determine the current week dynamically
 var actual_date = new Date();
 
 // The table to choose for color attribution
 var color_data;
+
+// To get the right colors for the events
+var actual_generation = "";
 
 // Wait for the content to load before displaying the events
 document.addEventListener("DOMContentLoaded", function () {
@@ -30,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(updateClock, 1000, "update");
 
     // Display what is the actual content
-    init_head(default_data);
+    // init_head(actual_data);
 
     // Dynamically generating the table
     // Parent element containing the full table
@@ -129,40 +132,30 @@ document.addEventListener("DOMContentLoaded", function () {
     scheduler.appendChild(scheduler_rows);
 
     // The fetch function to retrieve calendar data in .ics format
-    fetchICS("ressources/"+default_data+".ics");
+    // fetchICS("ressources/"+actual_data+".ics");
 
     // Adding a click behaviour to the year selector menu
-    change_ressource = document.getElementsByClassName("year");
-    for (year of change_ressource){
+    change_ressource = document.getElementsByClassName("choices")[0];
 
-        // Display the associated data on click
-        year.addEventListener("click", function () {
-
-            // Regex to retrieve to correct ressource according to the button text
-            const re = /^(\w*)/g;
-            const text_clicked = this.textContent;
-            const group_found = text_clicked.match(re);
-
-            fetchICS("ressources/"+group_found[0]+".ics");
-
-            // Display what is the actual content
-            init_head(group_found[0]);
-
-            // Store what is the actual data
-            actual_data = group_found[0];
-        });
-    }
+    change_ressource.addEventListener("click", function () {
+        clear();
+        var schedule = document.getElementsByClassName("schedule-wrapper")[0];
+        schedule.classList.remove("fade-in");
+        schedule.classList.add("fade-out");
+        var popup = document.getElementsByClassName("popup-wrapper")[0];
+        popup.classList.remove("fade-out");
+        popup.classList.add("fade-in");
+    });
 
     // Week change left arrow behaviour
-    temp_head = document.getElementById("head_main");
     const left_arrow = document.getElementsByClassName("uil-arrow-circle-left");
     for (al of left_arrow){
         al.addEventListener("click", function () {
             actual_date.setDate(actual_date.getDate()-7);
-            const re = /^.*\s-\s(.*)/;
-            const title_search = temp_head.textContent;
-            const group_found = title_search.match(re);
-            fetchICS("ressources/"+group_found[1]+".ics");
+            clear();
+            for (c of actual_data){
+                fetchICS("ressources/"+c+".ics");
+            } 
 
             // Updating the dates under the days
             updateDates();
@@ -174,13 +167,16 @@ document.addEventListener("DOMContentLoaded", function () {
     for (ar of right_arrow){
         ar.addEventListener("click", function () {
             actual_date.setDate(actual_date.getDate()+7);
-            const re = /^.*\s-\s(.*)/;
-            const title_search = temp_head.textContent;
-            const group_found = title_search.match(re);
-            fetchICS("ressources/"+group_found[1]+".ics");
+            clear();
+            for (c of actual_data){
+                fetchICS("ressources/"+c+".ics");
+            } 
             updateDates();
         });
     }
+
+    // Check if a cookie is set
+    checkCookie();
 
 });
 
@@ -193,16 +189,33 @@ function formatTime(hour) {
 function createBubble(start, end, summary, location, description) {
     const day_number = start.getDay();
     var start_hour = start.toLocaleTimeString('fr-FR');
+
+    // Check if the key exists in the dictionary
+    if (!events_hour_per_day_list[day_number-1].hasOwnProperty(start_hour)){
+        events_hour_per_day_list[day_number-1][start_hour] = [];
+        events_hour_per_day_list[day_number-1][start_hour].push(summary);
+    }
+    else{
+        if (!events_hour_per_day_list[day_number-1][start_hour].includes(summary)){
+            events_hour_per_day_list[day_number-1][start_hour].push(summary);
+        }
+        else{
+            return; // On ne veut pas afficher deux fois le même évènement
+        }
+    }
+
     start_hour = start_hour.split(":");
     const top_offset = 50 + (parseInt(start_hour[0])-8)*30.35*2 + (parseInt(start_hour[1]))*1.01;
     
     var end_hour = end.toLocaleTimeString('fr-FR');
     end_hour = end_hour.split(":");
-    const event_height = (parseInt(end_hour[0]) - parseInt(start_hour[0]))*30.35*2 + (parseInt(end_hour[1]) - parseInt(start_hour[1]))*1.01;
+    var event_height = (parseInt(end_hour[0]) - parseInt(start_hour[0]))*30.35*2 + (parseInt(end_hour[1]) - parseInt(start_hour[1]))*1.01;
+    if (event_height > 900){
+        event_height = 838-50;
+    }
 
     const column_name = daysOfWeek[day_number-1];
     const column = document.getElementById(column_name);
-    events_hour_per_day_list[day_number-1].push(start.toLocaleTimeString('fr-FR'));
 
     const bubble = document.createElement("div");
     bubble.classList.add("bubble");
@@ -226,31 +239,43 @@ function createBubble(start, end, summary, location, description) {
     bubble.classList.add(start.toLocaleTimeString('fr-FR'));
     bubble.classList.add(daysOfWeek[day_number-1]);
     
-    switch (actual_data){
-        case "S5INF":
+    // Regex on actual_generation to get the department and semester but not the group, option, etc.
+    const re = /(.*S\d*)/g;
+    const group_found = actual_generation.match(re);
+    const extracted = group_found[0]; 
+
+    switch (extracted){
+        case "INFOS5":
             color_data = color_S5INF;
             break;
-        case "S6INF":
+        case "INFOS6":
             color_data = color_S6INF;
             break;
-        case "S6GPM":
+        case "GPMS6":
             color_data = color_S6GPM;
             break;
         default:
-            console.log("Pas de couleurs définies.");
+            //console.log("Pas de couleurs définies.");
+            break;
     }
 
-    const map_data = new Map(Object.entries(color_data));
-    for (const [cle, valeur] of map_data.entries()) {
-        if (summary.includes(cle)){
-            bubble.style.backgroundColor = valeur;
-            break;
+    if (color_data != undefined || color_data != null){
+        const map_data = new Map(Object.entries(color_data));
+        // Be careful if the summary is undefined
+        if (summary == undefined){
+            summary = "undefined";
         }
-      }
+        for (const [cle, valeur] of map_data.entries()) {
+            if (summary.includes(cle)){
+                bubble.style.backgroundColor = valeur;
+                break;
+            }
+        }
+    }
 
     bubble.addEventListener("click", function () {
         // Add your custom click behavior for the bubble here
-        alert(description);
+        alert(summary+"\n"+location+description);
     });
 
     column.appendChild(bubble);
@@ -284,13 +309,12 @@ function eventGenerator(data){
             }
         }
     }
-    console.log("Generated "+event_counter+" events.");
-    console.log("Ignored "+ignored_counter+" events.");
-    // A refaire pour gérer les cas ou ça ne commence pas à la même heure
+    //console.log("Generated "+event_counter+" events.");
+    //console.log("Ignored "+ignored_counter+" events.");
     var i = 0;
     for (let d of daysOfWeek){
-        const uniq_hours = Array.from(new Set(events_hour_per_day_list[i]));
-        for (h of uniq_hours){
+        const uniq_hours_of_d = events_hour_per_day_list[i];
+        for (let h in uniq_hours_of_d){
             const grouped_events = document.getElementsByClassName(d+" "+h); 
             if (grouped_events.length > 1){
                 const corrected_width = 100/grouped_events.length;
@@ -325,9 +349,9 @@ function fetchICS(file){
       return response.text();
     })
     .then(data => {
-      document.querySelectorAll(".bubble").forEach(el => el.remove());
-      eventGenerator(data);
-      getLastExport(data);
+        actual_generation = file.split("/")[1].split(".ics")[0];
+        eventGenerator(data);
+        getLastExport(data);
     })
     .catch(error => {
       console.error('Error:', error);
@@ -335,8 +359,19 @@ function fetchICS(file){
 }
 
 function init_head(ressource){
+    if (ressource.length > 1){
+        ressource = "Multiple";
+    }
+    else{
+        ressource = ressource[0];
+    }
     head_title = document.getElementById("head_main");
     head_title.textContent = "TimeLarveTable - "+ressource;
+}
+
+function clear(){
+    events_hour_per_day_list = [{}, {}, {}, {}, {}];
+    document.querySelectorAll(".bubble").forEach(el => el.remove());
 }
 
 function updateClock(who) {
@@ -425,4 +460,41 @@ function getLastExport(data){
 
     const version_div = document.getElementById("version");
     version_div.innerHTML = "Version : "+version+"<br>Last data update : "+dateHeureString;
+}
+
+function getCookie(cname) {
+let name = cname + "=";
+let decodedCookie = decodeURIComponent(document.cookie);
+let ca = decodedCookie.split(';');
+for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+    c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+    return c.substring(name.length, c.length);
+    }
+}
+return "";
+}
+
+function checkCookie() {
+let choices = getCookie("choices");
+if (choices != "") {
+    clear();
+    var list_choices = choices.split(",");
+    actual_data = list_choices;
+    init_head(actual_data);
+    for (c of list_choices){
+        fetchICS("ressources/"+c+".ics");
+    }
+    
+} else {
+    var popup = document.getElementsByClassName("popup-wrapper")[0];
+    popup.classList.remove("fade-out");
+    popup.classList.add("fade-in");
+    var schedule = document.getElementsByClassName("schedule-wrapper")[0];
+    schedule.classList.remove("fade-in");
+    schedule.classList.add("fade-out");
+}
 }
