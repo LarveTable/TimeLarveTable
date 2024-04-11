@@ -58,11 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 checkboxes_second.classList.remove('fade-in');
                 checkboxes_second.classList.add('fade-out');
 
-                console.log("binds");
                 choices = binds();
-                console.log(choices);
                 to_display = gen_container(choices);
-                console.log(to_display);
 
                 var checkboxes_third = document.querySelector(to_display);
 
@@ -73,13 +70,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             parent = parent.parentNode;
-        }
-  
-        // Check if it's checked
-        if (checkbox.checked) {
-          console.log(labelText + ' checkbox is checked');
-        } else {
-          console.log(labelText + ' checkbox is not checked');
         }
       });
     });
@@ -170,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var li = document.createElement('li');
         var input = document.createElement('input');
         input.setAttribute('type', 'checkbox');
-        input.setAttribute('id', data.id+'-'+semester);
+        input.setAttribute('id', data.id+'-'+dept+semester);
         input.setAttribute('value', data.value);
         input.addEventListener('click', function(e) {
             if (input.checked){
@@ -189,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
         var label = document.createElement('label');
-        label.setAttribute('for', data.id+'-'+semester);
+        label.setAttribute('for', data.id+'-'+dept+semester);
         label.textContent = data.label;
         
         li.appendChild(input);
@@ -239,10 +229,14 @@ document.addEventListener("DOMContentLoaded", function() {
           case "S5":
             break;
           case "S6":
+            choices_list = ["B2C", "AB1", "A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3"];
+            return choices_list;
             break;
           case "S7":
             break;
           case "S8":
+            choices_list = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4"];
+            return choices_list;
             break;
           case "S9":
             break;
@@ -333,6 +327,8 @@ document.addEventListener("DOMContentLoaded", function() {
           case "S7":
             break;
           case "S8":
+            choices_list = ["AINR", "ASTD", "BINR", "BSTD"];
+            return choices_list;
             break;
           case "S9":
             break;
