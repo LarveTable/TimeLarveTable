@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function() {
               choices_list = ["G1.1", "G1.2", "G2.1", "G2.2", "CLOUDS", "DATA", "M&I", "SECU", "IA", "IOT", "PM", "ROBO"];
               return choices_list;
             case "S7":
-              choices_list = ["G1.1", "G1.2", "G2.1", "G2.2", "CLOUDS", "DATA", "M&I", "SECU", "IOT", "MIV", "OPT", "SANTE", "SPECIF"];
+              choices_list = ["G1.1", "G1.2", "G2.1", "G2.2", "IAGA", "IAGB", "IG", "IOT", "REPRO", "RV", "SANTE", "SECUGA", "SECUGB"];
               return choices_list;
             case "S8":
               choices_list = ["G1.1", "G1.2", "G2.1", "G2.2", "CLOUDS", "DATA", "M&I", "SECU", "IA", "IOT", "PM", "ROBO", "RIE"];
