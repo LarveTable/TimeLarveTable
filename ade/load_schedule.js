@@ -451,7 +451,7 @@ function updateDates(){
 
 function getLastExport(data){
     var dateHeureString = "Error";
-    const regex = /\(Exporté le:(\d{2}\/\d{2}\/\d{4} \d{2}:\d{2})\)/;
+    const regex = /\(Exported :(\d{2}\/\d{2}\/\d{4} \d{2}:\d{2})\)/;
     const correspondance = data.match(regex);
     
     if (correspondance && correspondance.length > 1) {
